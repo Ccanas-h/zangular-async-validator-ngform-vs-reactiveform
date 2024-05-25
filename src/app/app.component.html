@@ -1,9 +1,20 @@
+<div class="grid-container-full">
+  <div class="grid-item">
+
+    <h3>Uso de Async Validator en ngForm y en FormControl - diferencias</h3>
+    <br>
+    Numbers found on False DB
+    <p *ngFor="let item of dbService.items; index as i"> {{ item.id }}  </p>
+
+  </div>
+</div>
+
 <div class="grid-container">
   <div class="grid-item">
 
     <form #form="ngForm">
       <mat-form-field class="example-full-width">
-        <mat-label>Choose random number</mat-label>
+        <mat-label>ngFOrm input - Choose random number</mat-label>
         <input class="form-control" matInput placeholder="0" appAsyncValidatorNgform #idNgForm="ngModel" ngModel
           name="id" id="id" required>
       </mat-form-field>
@@ -13,6 +24,17 @@
   </div>
 
   <div class="grid-item">
+
+    <form [formGroup]="myForm">
+      <mat-form-field class="example-full-width">
+        <mat-label>form control input</mat-label>
+        <input matInput formControlName="id" placeholder="Choose any number">
+      </mat-form-field>
+    </form>
+
+    <button mat-stroked-button color="warn" (click)="test(myForm)">Test FormControl</button>
+
+
   </div>
 
   <div class="grid-item">
@@ -20,12 +42,13 @@
       <pre>{{ NgFormExample?.control?.errors | json }}</pre>
       <pre>Valid: {{ NgFormExample?.valid | json }}</pre>
     </ng-container>
-
-
-
   </div>
 
   <div class="grid-item">
+    <ng-container *ngIf="myForm?.controls?.['id'] as FormControlExample">
+      <pre>{{ FormControlExample?.errors | json }}</pre>
+      <pre>Valid: {{ FormControlExample?.valid | json }}</pre>
+    </ng-container>
   </div>
 
 </div>
